@@ -17,11 +17,38 @@
 </head>
 <body>
   <header>
-    <p>Code Journal</p>
+    <h2>Code Journal</h2>
   </header>
   <main>
-    <div data-view="entry-form">
-
+    <div class="container" data-view="entry-form">
+      <form id="form">
+        <div class="column-full">
+          <h1>New Entry</h1>
+        </div>
+        <div class="column-full">
+          <img src="">
+        </div>
+        <div class="column-full">
+          <label for="title">Title</label>
+          <input
+          required
+          name="title">
+        </div>
+        <div class="column-full">
+          <label for="photo">Photo URL</label>
+          <input
+          required
+          name="Photo-URL"
+          type="url">
+        </div>
+        <div class="column-full">
+          <label for="Notes">Notes</label>
+          <textarea required name="text-area"></textarea>
+        </div>
+        <div class="column-full">
+          <button type="submit">Save</button>
+        </div>
+      </form>
     </div>
   </main>
   <script src="js/data.js"></script>
