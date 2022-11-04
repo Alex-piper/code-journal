@@ -31,7 +31,3 @@ label {
   margin-bottom: 0.5rem;
   margin-top: 0.5rem;
 }
-
-input:focus {
-  border-color: rgb(83, 17, 83);
-}
