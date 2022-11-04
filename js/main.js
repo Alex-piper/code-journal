@@ -15,9 +15,9 @@ function entrySubmit(event) {
   var object = {};
   object.title = $form.elements.title.value;
   object.url = $form.elements.url.value;
-  object.notes = $form.elements.notes.value;
+  object.notes = $form.elements.text.value;
   object.nextid = data.nextEntryId++;
   data.entries.unshift(object);
-  $photoSrc.setAttribute('src', 'images/placeholder-image-square.jpg');
   $form.reset();
+  $photoSrc.setAttribute('src', 'images/placeholder-image-square.jpg');
 }
