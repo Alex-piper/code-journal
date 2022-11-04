@@ -1,0 +1,33 @@
+header {
+  background-color: rgb(83, 17, 83);
+  color: white;
+  padding-left: 1.5rem;
+}
+
+button {
+  background-color: rgb(83, 17, 83);
+  color: white;
+}
+
+body {
+  background-color: rgba(128, 128, 128, 0.193);
+}
+
+.d-block {
+  display: block;
+}
+
+img {
+  width: 100%;
+}
+
+.button-mover {
+  justify-content: right;
+  display: flex;
+  margin-top: 1rem;
+}
+
+label {
+  margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
+}
