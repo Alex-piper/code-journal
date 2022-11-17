@@ -2,6 +2,9 @@
 var $photoURL = document.querySelector('#photo');
 var $photoSrc = document.querySelector('#image');
 var $ul = document.querySelector('#entries-ul');
+var $entriesLink = document.querySelector('#entries-link');
+var $views = document.querySelectorAll('[data-view]');
+var $formLink = document.getElementById('formLink');
 
 $photoURL.addEventListener('input', getPhoto);
 function getPhoto(event) {
@@ -69,4 +72,24 @@ document.addEventListener('DOMContentLoaded', function (event) {
   for (var i = 0; i < data.entries.length; i++) {
     $ul.appendChild(renderEntry(data.entries[i]));
   }
+});
+
+function viewSwap(view) {
+  data.view = view;
+  for (let i = 0; i < $views.length; i++) {
+    if ($views[i].getAttribute('data-view') === view) {
+      $views[i].classList.remove('hidden');
+    } else {
+      $views[i].classList.add('hidden');
+    }
+  }
+
+}
+$entriesLink.addEventListener('click', function (event) {
+  viewSwap('entries');
+});
+
+$formLink.addEventListener('click', function (event) {
+  $form.reset();
+  viewSwap('entry-form');
 });
