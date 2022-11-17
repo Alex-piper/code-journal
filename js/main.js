@@ -1,6 +1,7 @@
 /* globaldata */
 var $photoURL = document.querySelector('#photo');
 var $photoSrc = document.querySelector('#image');
+var $ul = document.querySelector('#entries-ul');
 
 $photoURL.addEventListener('input', getPhoto);
 function getPhoto(event) {
@@ -63,3 +64,9 @@ function renderEntry(entry) {
   return li;
 
 }
+
+document.addEventListener('DOMContentLoaded', function (event) {
+  for (var i = 0; i < data.entries.length; i++) {
+    $ul.appendChild(renderEntry(data.entries[i]));
+  }
+});
