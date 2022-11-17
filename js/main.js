@@ -24,6 +24,7 @@ function entrySubmit(event) {
   data.entries.unshift(object);
   $form.reset();
   $photoSrc.setAttribute('src', 'images/placeholder-image-square.jpg');
+  viewSwap('entries');
 }
 
 function renderEntry(entry) {
