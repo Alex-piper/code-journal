@@ -18,6 +18,22 @@
   width: 100%;
 }
 
+.white {
+  color: white;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
 @media screen and (min-width: 768px) {
   .container {
     max-width: 900px;

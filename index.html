@@ -17,7 +17,14 @@
 </head>
 <body>
   <header>
-    <h3 class="container">Code Journal</h3>
+    <div class="container">
+      <div class="row">
+        <div class="column-full d-flex align-center">
+          <h2 class="container">Code Journal</h2>
+          <h3><a id="entries-link" class="entries-link white" href="#">Entries</a></h3>
+        </div>
+      </div>
+    </div>
   </header>
   <main>
     <div class="container" data-view="entry-form">
@@ -50,6 +57,17 @@
           </div>
         </div>
       </form>
+    </div>
+    <div data-view="entries" class="container">
+      <div class="row">
+        <div class="column-full d-flex align-center justify-between">
+          <h2>Entries</h2>
+          <h3><a id="formLink" class="white form-Link background-purple" href="#">NEW</a></h3>
+        </div>
+      </div>
+      <ul style="list-style-type:none" id="entries-ul">
+
+      </ul>
     </div>
   </main>
   <script src="js/data.js"></script>
