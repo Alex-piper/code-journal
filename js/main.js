@@ -100,3 +100,9 @@ $formLink.addEventListener('click', function (event) {
   $form.reset();
   viewSwap('entry-form');
 });
+
+$ul.addEventListener('click', function (event) {
+  if (event.target.matches('i')) {
+    console.log('clicked');
+  }
+});
