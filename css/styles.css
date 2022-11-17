@@ -37,6 +37,7 @@ h3.entries-link {
   padding-left: 1rem;
 }
 
-.form-link {
-  background-color: purple;
+.background-purple {
+  background-color: rgb(83, 17, 83);
+  text-decoration: none;
 }
