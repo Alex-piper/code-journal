@@ -73,6 +73,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
   for (var i = 0; i < data.entries.length; i++) {
     $ul.appendChild(renderEntry(data.entries[i]));
   }
+  viewSwap(data.view);
 });
 
 function viewSwap(view) {
