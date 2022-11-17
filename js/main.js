@@ -104,5 +104,15 @@ $formLink.addEventListener('click', function (event) {
 $ul.addEventListener('click', function (event) {
   if (event.target.matches('i')) {
     viewSwap('entry-form');
+    var entryId = Number(event.target.closest('li').getAttribute('data-entry-id'));
+    data.editing = matchingEntryObject(entryId);
   }
 });
+
+function matchingEntryObject(entryId) {
+  for (let i = 0; i < data.entries.length; i++) {
+    if (data.entries[i].entryId === entryId) {
+      return data.entries[i];
+    }
+  }
+}
