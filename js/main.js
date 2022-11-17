@@ -31,7 +31,7 @@ function entrySubmit(event) {
 function renderEntry(entry) {
   var li = document.createElement('li');
   li.setAttribute('class', 'column-full entries');
-  li.setAttribute('data-entry-id', entry.nextEntryId);
+  li.setAttribute('data-entry-id', entry.nextid);
 
   var div1 = document.createElement('div');
   div1.setAttribute('class', 'row');
