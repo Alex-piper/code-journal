@@ -31,3 +31,8 @@ label {
   margin-bottom: 0.5rem;
   margin-top: 0.5rem;
 }
+
+h3.entries-link {
+  text-decoration: none;
+  padding-left: 1rem;
+}
