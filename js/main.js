@@ -66,6 +66,10 @@ function renderEntry(entry) {
   $notes.textContent = entry.notes;
   div3.appendChild($notes);
 
+  var $editIcon = document.createElement('i');
+  $editIcon.className = 'fa-solid fa-pencil';
+  div5.appendChild($editIcon);
+
   return li;
 
 }
