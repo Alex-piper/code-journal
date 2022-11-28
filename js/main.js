@@ -5,6 +5,9 @@ var $ul = document.querySelector('#entries-ul');
 var $entriesLink = document.querySelector('#entries-link');
 var $views = document.querySelectorAll('[data-view]');
 var $formLink = document.getElementById('formLink');
+var $form = document.querySelector('#form');
+var $notes = document.querySelector('#notes');
+var $title = document.querySelector('#Title');
 
 $photoURL.addEventListener('input', getPhoto);
 function getPhoto(event) {
@@ -12,7 +15,6 @@ function getPhoto(event) {
   $photoSrc.setAttribute('src', $photoValue);
 }
 
-var $form = document.querySelector('#form');
 $form.addEventListener('submit', entrySubmit);
 function entrySubmit(event) {
   event.preventDefault();
@@ -68,10 +70,17 @@ function renderEntry(entry) {
 
   var $editIcon = document.createElement('i');
   $editIcon.className = 'fa-solid fa-pencil';
+  $editIcon.setAttribute('data-view', 'entries');
+  $editIcon.addEventListener('click', getViewName);
   div5.appendChild($editIcon);
 
   return li;
 
+}
+
+function getViewName(event) {
+  var viewName = event.currentTarget.getAttribute('data-view');
+  viewSwap(viewName);
 }
 
 document.addEventListener('DOMContentLoaded', function (event) {
@@ -92,27 +101,53 @@ function viewSwap(view) {
   }
 
 }
+
 $entriesLink.addEventListener('click', function (event) {
   viewSwap('entries');
 });
 
 $formLink.addEventListener('click', function (event) {
-  $form.reset();
   viewSwap('entry-form');
 });
 
-$ul.addEventListener('click', function (event) {
-  if (event.target.matches('i')) {
-    viewSwap('entry-form');
-    var entryId = Number(event.target.closest('li').getAttribute('data-entry-id'));
-    data.editing = matchingEntryObject(entryId);
-  }
-});
+$ul.addEventListener('click', editHandler);
 
-function matchingEntryObject(entryId) {
-  for (let i = 0; i < data.entries.length; i++) {
-    if (data.entries[i].entryId === entryId) {
-      return data.entries[i];
+var targetJournalEntry = null;
+
+function editHandler(event) {
+  if (!event.target.matches('i')) {
+    return null;
+  } else {
+    viewSwap('entry-form');
+    targetJournalEntry = event.target.closest('li');
+    var targetEntryid = targetJournalEntry.getAttribute('title');
+    for (var i = 0; i < data.entries.length; i++) {
+      var eachDataEntry = data.entries[i];
+      if (Number(targetEntryId) === eachDataEntry.id) {
+        $photoSrc.setAttribute('src', eachDataEntry.image);
+        $title.value = eachDataEntry.title;
+        $notes.value = eachDataEntry.notes;
+        $photoURL.value = eachDataEntry.url;
+
+        data.editing = eachDataEntry;
+      }
     }
   }
 }
+// data.editing = entryObject(entryid);
+// // autoPopulateForm(data.editing);
+
+// function entryObject(entryId) {
+//   for (let i = 0; i < data.entries.length; i++) {
+//     if (data.entries[i].entryId === entryId) {
+//       return data.entries[i];
+//     }
+//   }
+// }
+
+// function autoPopulateForm(entry) {
+//   $title.value = data.title;
+//   $notes.value = data.notes;
+//   $photoURL.value = data.url;
+//   $photoSrc.setAttribute('src', data.url);
+// }
