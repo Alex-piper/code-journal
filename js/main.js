@@ -5,9 +5,6 @@ var $ul = document.querySelector('#entries-ul');
 var $entriesLink = document.querySelector('#entries-link');
 var $views = document.querySelectorAll('[data-view]');
 var $formLink = document.getElementById('formLink');
-var $form = document.querySelector('#form');
-var $notes = document.querySelector('#notes');
-var $title = document.querySelector('#Title');
 
 $photoURL.addEventListener('input', getPhoto);
 function getPhoto(event) {
@@ -15,6 +12,7 @@ function getPhoto(event) {
   $photoSrc.setAttribute('src', $photoValue);
 }
 
+var $form = document.querySelector('#form');
 $form.addEventListener('submit', entrySubmit);
 function entrySubmit(event) {
   event.preventDefault();
@@ -57,30 +55,23 @@ function renderEntry(entry) {
   div3.appendChild(div4);
 
   var div5 = document.createElement('div');
-  div5.setAttribute('class', 'column-full');
+  div5.setAttribute('class', 'column-full d-flex justify-between');
   div4.appendChild(div5);
 
   var $title = document.createElement('h2');
   $title.textContent = entry.title;
-  div5.appendChild($title);
 
   var $notes = document.createElement('p');
   $notes.textContent = entry.notes;
   div3.appendChild($notes);
 
-  var $editIcon = document.createElement('i');
-  $editIcon.className = 'fa-solid fa-pencil';
-  $editIcon.setAttribute('data-view', 'entries');
-  $editIcon.addEventListener('click', getViewName);
-  div5.appendChild($editIcon);
+  var $icon = document.createElement('i');
+  $icon.className = 'fa-solid fa-pencil';
+  div5.appendChild($title);
+  div5.appendChild($icon);
 
   return li;
 
-}
-
-function getViewName(event) {
-  var viewName = event.currentTarget.getAttribute('data-view');
-  viewSwap(viewName);
 }
 
 document.addEventListener('DOMContentLoaded', function (event) {
@@ -101,53 +92,37 @@ function viewSwap(view) {
   }
 
 }
-
 $entriesLink.addEventListener('click', function (event) {
   viewSwap('entries');
 });
 
 $formLink.addEventListener('click', function (event) {
+  $form.reset();
   viewSwap('entry-form');
 });
 
-$ul.addEventListener('click', editHandler);
+// -------------------------Update entries------------------------
 
-var targetJournalEntry = null;
-
-function editHandler(event) {
-  if (!event.target.matches('i')) {
-    return null;
-  } else {
+$ul.addEventListener('click', function (event) {
+  if (event.target.matches('i')) {
     viewSwap('entry-form');
-    targetJournalEntry = event.target.closest('li');
-    var targetEntryid = targetJournalEntry.getAttribute('title');
-    for (var i = 0; i < data.entries.length; i++) {
-      var eachDataEntry = data.entries[i];
-      if (Number(targetEntryId) === eachDataEntry.id) {
-        $photoSrc.setAttribute('src', eachDataEntry.image);
-        $title.value = eachDataEntry.title;
-        $notes.value = eachDataEntry.notes;
-        $photoURL.value = eachDataEntry.url;
+    var entryId = Number(event.target.closest('li').getAttribute('data-entry-id'));
+    data.editing = findEntryObject(entryId);
+    populateForm(data.editing);
+  }
+});
 
-        data.editing = eachDataEntry;
-      }
+function findEntryObject(entryId) {
+  for (let i = 0; i < data.entries.length; i++) {
+    if (data.entries[i].nextid === entryId) {
+      return data.entries[i];
     }
   }
 }
-// data.editing = entryObject(entryid);
-// // autoPopulateForm(data.editing);
 
-// function entryObject(entryId) {
-//   for (let i = 0; i < data.entries.length; i++) {
-//     if (data.entries[i].entryId === entryId) {
-//       return data.entries[i];
-//     }
-//   }
-// }
-
-// function autoPopulateForm(entry) {
-//   $title.value = data.title;
-//   $notes.value = data.notes;
-//   $photoURL.value = data.url;
-//   $photoSrc.setAttribute('src', data.url);
-// }
+function populateForm(entry) {
+  $form.elements.title.value = entry.title;
+  $form.elements.text.value = entry.notes;
+  $form.elements.url.value = entry.url;
+  $photoSrc.setAttribute('src', entry.url);
+}
