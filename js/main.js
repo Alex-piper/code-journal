@@ -5,6 +5,7 @@ var $ul = document.querySelector('#entries-ul');
 var $entriesLink = document.querySelector('#entries-link');
 var $views = document.querySelectorAll('[data-view]');
 var $formLink = document.getElementById('formLink');
+var $formtitle = document.getElementById('entryTitle');
 
 $photoURL.addEventListener('input', getPhoto);
 function getPhoto(event) {
@@ -14,24 +15,33 @@ function getPhoto(event) {
 
 var $form = document.querySelector('#form');
 $form.addEventListener('submit', entrySubmit);
+
 function entrySubmit(event) {
   event.preventDefault();
   var object = {};
   object.title = $form.elements.title.value;
   object.url = $form.elements.url.value;
   object.notes = $form.elements.text.value;
-  object.nextid = data.nextEntryId++;
-  data.entries.unshift(object);
+  if (data.editing === null) {
+    object.entryId = data.nextEntryId++;
+    data.entries.unshift(object);
+    $ul.prepend(renderEntry(object));
+  } else {
+    object.entryId = data.editing.entryId;
+    updateEntries(object);
+    var updatedLi = renderEntry(object);
+    var liToReplace = findLi(data.editing.entryId);
+    liToReplace.replaceWith(updatedLi);
+    data.editing = null;
+  }
   $form.reset();
-  $photoSrc.setAttribute('src', 'images/placeholder-image-square.jpg');
   viewSwap('entries');
-  $ul.prepend(renderEntry(object));
 }
 
 function renderEntry(entry) {
   var li = document.createElement('li');
   li.setAttribute('class', 'column-full entries');
-  li.setAttribute('data-entry-id', entry.nextid);
+  li.setAttribute('data-entry-id', entry.entryId);
 
   var div1 = document.createElement('div');
   div1.setAttribute('class', 'row');
@@ -108,21 +118,46 @@ $ul.addEventListener('click', function (event) {
     viewSwap('entry-form');
     var entryId = Number(event.target.closest('li').getAttribute('data-entry-id'));
     data.editing = findEntryObject(entryId);
-    populateForm(data.editing);
+    fillInForm(data.editing);
+    updateFormTitle('Edit Entry');
   }
 });
 
 function findEntryObject(entryId) {
   for (let i = 0; i < data.entries.length; i++) {
-    if (data.entries[i].nextid === entryId) {
+    if (data.entries[i].entryId === entryId) {
       return data.entries[i];
     }
   }
 }
 
-function populateForm(entry) {
+function fillInForm(entry) {
   $form.elements.title.value = entry.title;
   $form.elements.text.value = entry.notes;
   $form.elements.url.value = entry.url;
   $photoSrc.setAttribute('src', entry.url);
+}
+
+function updateEntries(object) {
+  var newEntries = data.entries.map(entry => {
+    if (entry.entryId === object.entryId) {
+      return object;
+    } else {
+      return entry;
+    }
+  });
+  data.entries = newEntries;
+}
+
+function findLi(entryId) {
+  const $lis = document.querySelectorAll('li');
+  for (const li of $lis) {
+    if (Number(li.getAttribute('data-entry-id')) === entryId) {
+      return li;
+    }
+  }
+}
+
+function updateFormTitle(string) {
+  $formtitle.textContent = string;
 }
