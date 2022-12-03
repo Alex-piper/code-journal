@@ -81,6 +81,8 @@ h3.entries-link {
   background-color: tomato;
   width: 5rem;
   cursor: pointer;
+  padding-top: 0.5rem;
+  padding-bottom: 00.5rem;
 }
 
 .cancel {
@@ -104,4 +106,8 @@ h3.entries-link {
   border-radius: 0.25rem;
   border: none;
   padding: 00.5rem;
+}
+
+.padding {
+  padding: 0.5rem;
 }

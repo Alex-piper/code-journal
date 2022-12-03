@@ -117,7 +117,7 @@ $entriesLink.addEventListener('click', function (event) {
 });
 
 $formLink.addEventListener('click', function (event) {
-  $form.reset();
+  resetForm();
   viewSwap('entry-form');
   $deleteEntrySpan.className = 'delete-entry-span hidden';
   updateFormTitle('New Entry');
