@@ -88,8 +88,20 @@ h3.entries-link {
   background-color: #b6b6b6;
   width: 5rem;
   color: #303030;
+  padding-top: 0.5rem;
+  padding-bottom: 00.5rem;
 }
 
 .background-white {
   background-color: white;
+}
+
+.new-button {
+  background-color: #562b82;
+  color: white;
+  width: 4rem;
+  height: 2rem;
+  border-radius: 0.25rem;
+  border: none;
+  padding: 00.5rem;
 }
