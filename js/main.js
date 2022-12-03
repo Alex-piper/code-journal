@@ -6,6 +6,10 @@ var $entriesLink = document.querySelector('#entries-link');
 var $views = document.querySelectorAll('[data-view]');
 var $formLink = document.getElementById('formLink');
 var $formtitle = document.getElementById('entryTitle');
+var $deleteEntrySpan = document.querySelector('.delete-entry-span');
+var $cancelButton = document.querySelector('.cancel');
+var $confirmModalOverlay = document.querySelector('.overlay');
+var $deleteButton = document.querySelector('.confirm');
 
 $photoURL.addEventListener('input', getPhoto);
 function getPhoto(event) {
@@ -34,7 +38,7 @@ function entrySubmit(event) {
     liToReplace.replaceWith(updatedLi);
     data.editing = null;
   }
-  $form.reset();
+  resetForm();
   viewSwap('entries');
 }
 
@@ -102,13 +106,21 @@ function viewSwap(view) {
   }
 
 }
+
+function resetForm() {
+  $form.reset();
+  $photoSrc.setAttribute('src', 'images/placeholder-image-square.jpg');
+}
+
 $entriesLink.addEventListener('click', function (event) {
   viewSwap('entries');
 });
 
 $formLink.addEventListener('click', function (event) {
-  $form.reset();
+  resetForm();
   viewSwap('entry-form');
+  $deleteEntrySpan.className = 'delete-entry-span hidden';
+  updateFormTitle('New Entry');
 });
 
 // -------------------------Update entries------------------------
@@ -119,6 +131,7 @@ $ul.addEventListener('click', function (event) {
     var entryId = Number(event.target.closest('li').getAttribute('data-entry-id'));
     data.editing = findEntryObject(entryId);
     fillInForm(data.editing);
+    $deleteEntrySpan.className = 'delete-entry-span';
     updateFormTitle('Edit Entry');
   }
 });
@@ -161,3 +174,31 @@ function findLi(entryId) {
 function updateFormTitle(string) {
   $formtitle.textContent = string;
 }
+
+// --------------------- Delete Modal Toggle ---------------------
+
+function toggleConfirmationModal(event) {
+  $confirmModalOverlay.className = 'overlay';
+}
+
+function hideModalHandler(event) {
+  $confirmModalOverlay.className = 'overlay hidden';
+}
+
+$deleteEntrySpan.addEventListener('click', toggleConfirmationModal);
+$cancelButton.addEventListener('click', hideModalHandler);
+
+// -----------------------Delete Entry--------------------------
+
+function deleteEntryHandler(event) {
+
+  var deleteIndex = data.entries.findIndex(array => array.entryId === data.editing.entryId);
+  var liToDelete = findLi(data.editing.entryId);
+  liToDelete.remove();
+  data.entries.splice(deleteIndex, 1);
+  data.editing = null;
+  hideModalHandler();
+  viewSwap('entries');
+}
+
+$deleteButton.addEventListener('click', deleteEntryHandler);
