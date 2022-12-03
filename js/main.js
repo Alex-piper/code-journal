@@ -9,6 +9,7 @@ var $formtitle = document.getElementById('entryTitle');
 var $deleteEntrySpan = document.querySelector('.delete-entry-span');
 var $cancelButton = document.querySelector('.cancel');
 var $confirmModalOverlay = document.querySelector('.overlay');
+var $deleteButton = document.querySelector('.confirm');
 
 $photoURL.addEventListener('input', getPhoto);
 function getPhoto(event) {
@@ -181,4 +182,10 @@ function hideModalHandler(event) {
 $deleteEntrySpan.addEventListener('click', toggleConfirmationModal);
 $cancelButton.addEventListener('click', hideModalHandler);
 
-// -----------------------------------------------------------------
+// -----------------------Delete Entry--------------------------
+
+function deleteEntryHandler(event) {
+  viewSwap('entries');
+}
+
+$deleteButton.addEventListener('click', deleteEntryHandler);
