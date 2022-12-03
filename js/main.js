@@ -185,6 +185,13 @@ $cancelButton.addEventListener('click', hideModalHandler);
 // -----------------------Delete Entry--------------------------
 
 function deleteEntryHandler(event) {
+
+  var deleteIndex = data.entries.findIndex(array => array.entryId === data.editing.entryId);
+  var liToDelete = findLi(data.editing.entryId);
+  liToDelete.remove();
+  data.entries.splice(deleteIndex, 1);
+  data.editing = null;
+  hideModalHandler();
   viewSwap('entries');
 }
 
