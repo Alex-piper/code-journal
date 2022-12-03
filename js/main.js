@@ -7,6 +7,8 @@ var $views = document.querySelectorAll('[data-view]');
 var $formLink = document.getElementById('formLink');
 var $formtitle = document.getElementById('entryTitle');
 var $deleteEntrySpan = document.querySelector('.delete-entry-span');
+var $cancelButton = document.querySelector('.cancel');
+var $confirmModalOverlay = document.querySelector('.overlay');
 
 $photoURL.addEventListener('input', getPhoto);
 function getPhoto(event) {
@@ -165,3 +167,18 @@ function findLi(entryId) {
 function updateFormTitle(string) {
   $formtitle.textContent = string;
 }
+
+// --------------------- Delete Modal Toggle ---------------------
+
+function toggleConfirmationModal(event) {
+  $confirmModalOverlay.className = 'overlay';
+}
+
+function hideModalHandler(event) {
+  $confirmModalOverlay.className = 'overlay hidden';
+}
+
+$deleteEntrySpan.addEventListener('click', toggleConfirmationModal);
+$cancelButton.addEventListener('click', hideModalHandler);
+
+// -----------------------------------------------------------------

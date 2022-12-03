@@ -66,3 +66,34 @@ h3.entries-link {
   border-radius: 0.25rem;
   border: none;
 }
+
+.overlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  text-align: center;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.75);
+}
+
+.modal {
+  justify-content: space-between;
+}
+
+.confirm {
+  background-color: tomato;
+  width: 5rem;
+  cursor: pointer;
+}
+
+.cancel {
+  cursor: pointer;
+  background-color: #b6b6b6;
+  width: 5rem;
+  color: #303030;
+}
