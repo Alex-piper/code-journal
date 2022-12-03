@@ -6,6 +6,7 @@ var $entriesLink = document.querySelector('#entries-link');
 var $views = document.querySelectorAll('[data-view]');
 var $formLink = document.getElementById('formLink');
 var $formtitle = document.getElementById('entryTitle');
+var $deleteEntrySpan = document.querySelector('.delete-entry-span');
 
 $photoURL.addEventListener('input', getPhoto);
 function getPhoto(event) {
@@ -109,6 +110,8 @@ $entriesLink.addEventListener('click', function (event) {
 $formLink.addEventListener('click', function (event) {
   $form.reset();
   viewSwap('entry-form');
+  $deleteEntrySpan.className = 'delete-entry-span hidden';
+  updateFormTitle('New Entry');
 });
 
 // -------------------------Update entries------------------------
@@ -119,6 +122,7 @@ $ul.addEventListener('click', function (event) {
     var entryId = Number(event.target.closest('li').getAttribute('data-entry-id'));
     data.editing = findEntryObject(entryId);
     fillInForm(data.editing);
+    $deleteEntrySpan.className = 'delete-entry-span';
     updateFormTitle('Edit Entry');
   }
 });
