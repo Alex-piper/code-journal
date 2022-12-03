@@ -38,7 +38,7 @@ function entrySubmit(event) {
     liToReplace.replaceWith(updatedLi);
     data.editing = null;
   }
-  $form.reset();
+  resetForm();
   viewSwap('entries');
 }
 
@@ -106,6 +106,12 @@ function viewSwap(view) {
   }
 
 }
+
+function resetForm() {
+  $form.reset();
+  $photoSrc.setAttribute('src', 'images/placeholder-image-square.jpg');
+}
+
 $entriesLink.addEventListener('click', function (event) {
   viewSwap('entries');
 });
